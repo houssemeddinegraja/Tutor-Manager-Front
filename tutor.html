@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TutorMaster - ERP</title>
+    <link rel="stylesheet" href="tut.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                🎓 Tutor<span>Master</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#dashboard" class="nav-item active" data-title="Vue d'ensemble" data-target="view-dashboard">
+                    📊 Dashboard
+                </a>
+                <a href="#students" class="nav-item" data-title="Gestion des Étudiants" data-target="view-students">
+                    👥 Étudiants
+                </a>
+                <a href="#classes" class="nav-item" data-title="Cours & Tarifs" data-target="view-classes">
+                    📚 Cours & Tarifs
+                </a>
+                <a href="#planning" class="nav-item" data-title="Planning & Sessions" data-target="view-planning">
+                    📅 Planning
+                </a>
+                <a href="#finances" class="nav-item" data-title="Finances & Paiements" data-target="view-finances">
+                    💰 Finances
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                Connecté en tant que<br>
+                <strong>Admin</strong>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div class="page-title">
+                    <h1 id="topbar-title">Vue d'ensemble</h1>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar">T</div>
+                    <span>Tuteur Admin</span>
+                </div>
+            </header>
+
+            <div class="content-area">
+                
+                <div id="view-dashboard" class="view-section active">
+                    <section class="stats-grid">
+                        <div class="stat-card">
+                            <h3>Étudiants Actifs</h3>
+                            <p class="stat-value">24</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Sessions cette semaine</h3>
+                            <p class="stat-value">12</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Revenus (Mois)</h3>
+                            <p class="stat-value">1 450,00 €</p>
+                        </div>
+                    </section>
+
+                    <section class="data-section">
+                        <div class="section-header">
+                            <h2>Prochaines Sessions</h2>
+                            <button class="btn-primary" onclick="openModal('Nouvelle Session')">+ Nouvelle Session</button>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date & Heure</th><th>Étudiant</th><th>Cours</th><th>Durée</th><th>Statut Paiement</th><th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>28 Avril, 14:00</td><td>Jean Dupont</td><td>Maths Avancées</td><td>60 min</td>
+                                        <td><span class="badge badge-success">Payé</span></td><td><button class="btn-text">Éditer</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>29 Avril, 10:00</td><td>Marie Curie</td><td>Physique</td><td>90 min</td>
+                                        <td><span class="badge badge-warning">En attente</span></td><td><button class="btn-text">Éditer</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+
+                <div id="view-students" class="view-section">
+                    <section class="data-section">
+                        <div class="section-header">
+                            <h2>Liste des Étudiants</h2>
+                            <button class="btn-primary" onclick="openModal('Nouvel Étudiant')">+ Ajouter un étudiant</button>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr><th>Nom & Prénom</th><th>Email</th><th>Téléphone</th><th>Date d'inscription</th><th>Actions</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Jean Dupont</td><td>jean.d@email.com</td><td>06 12 34 56 78</td><td>01/04/2026</td><td><button class="btn-text">Détails</button></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+
+                <div id="view-classes" class="view-section">
+                    <section class="data-section">
+                        <div class="section-header">
+                            <h2>Catalogue des cours</h2>
+                            <button class="btn-primary" onclick="openModal('Nouveau Cours')">+ Ajouter un cours</button>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr><th>Nom du cours</th><th>Matière</th><th>Taux Horaire</th><th>Actions</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Maths Avancées</td><td>Mathématiques</td><td>25,00 €</td><td><button class="btn-text">Éditer</button></td></tr>
+                                    <tr><td>Physique Chimie</td><td>Physique</td><td>25,00 €</td><td><button class="btn-text">Éditer</button></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+
+                <div id="view-planning" class="view-section">
+                    <section class="data-section">
+                        <div class="section-header">
+                            <h2>Planning du mois - Avril 2026</h2>
+                            <button class="btn-primary" onclick="openModal('Nouvelle Session')">+ Planifier</button>
+                        </div>
+                        <div class="calendar-grid">
+                            <div class="day-name">Lun</div><div class="day-name">Mar</div><div class="day-name">Mer</div><div class="day-name">Jeu</div><div class="day-name">Ven</div><div class="day-name">Sam</div><div class="day-name">Dim</div>
+                            
+                            <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
+                            <div class="day">1</div><div class="day">2</div>
+                            <div class="day has-session">3 <div class="event">14h - Jean D.</div></div>
+                            <div class="day">4</div>
+                            </div>
+                    </section>
+                </div>
+
+                <div id="view-finances" class="view-section">
+                    <section class="data-section">
+                        <div class="section-header">
+                            <h2>Historique des paiements</h2>
+                            <button class="btn-primary" onclick="openModal('Enregistrer un paiement')">+ Nouveau Paiement</button>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr><th>Date</th><th>Montant</th><th>Étudiant</th><th>Notes</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>28/04/2026</td><td><strong>50,00 €</strong></td><td>Jean Dupont</td><td>Pour 2 séances de maths</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2 id="modal-title">Titre dynamique</h2>
+                <button class="close-btn" onclick="closeModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <p>Formulaire à intégrer ici en fonction du type d'action...</p>
+                <br>
+                <button class="btn-primary" style="width:100%">Sauvegarder</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.sidebar-nav .nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // 1. Gérer la classe 'active' du menu
+                document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+
+                // 2. Changer le titre de la page
+                document.getElementById('topbar-title').innerText = this.getAttribute('data-title');
+
+                // 3. Afficher la bonne section
+                document.querySelectorAll('.view-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                const targetId = this.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+
+        // Fonctions de la modale
+        function openModal(titre) {
+            document.getElementById('modal-title').innerText = titre;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
