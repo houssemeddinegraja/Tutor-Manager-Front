@@ -10,11 +10,8 @@
 <body>
 
     <div class="app-container">
-        
         <aside class="sidebar">
-            <div class="sidebar-brand">
-                🎓 Tutor<span>Master</span>
-            </div>
+            <div class="sidebar-brand">🎓 Tutor<span>Master</span></div>
             <nav class="sidebar-nav">
                 <div class="nav-item active" data-target="view-dashboard" data-title="Vue d'ensemble">📊 Dashboard</div>
                 <div class="nav-item" data-target="view-students" data-title="Mes Étudiants">👥 Étudiants</div>
@@ -23,10 +20,7 @@
                 <div class="nav-item" data-target="view-planning" data-title="Planning & Sessions">📅 Planning</div>
                 <div class="nav-item" data-target="view-payments" data-title="Suivi des Paiements">💰 Finances</div>
             </nav>
-            <div class="sidebar-footer">
-                Connecté en tant que<br>
-                <strong>Admin</strong>
-            </div>
+            <div class="sidebar-footer">Connecté en tant que<br><strong>Admin</strong></div>
         </aside>
 
         <main class="main-content">
@@ -42,28 +36,30 @@
                 
                 <div id="view-dashboard" class="view-section active">
                     <div class="stats-grid">
-                        <div class="stat-card"><h3>Étudiants Actifs</h3><p class="stat-value" id="stat-students">2</p></div>
-                        <div class="stat-card"><h3>Cours Proposés</h3><p class="stat-value" id="stat-classes">2</p></div>
-                        <div class="stat-card"><h3>Revenus (Mois)</h3><p class="stat-value">1 450,00 €</p></div>
+                        <div class="stat-card"><h3>Étudiants Actifs</h3><p class="stat-value" id="stat-students">0</p></div>
+                        <div class="stat-card"><h3>Cours Proposés</h3><p class="stat-value" id="stat-classes">0</p></div>
+                        <div class="stat-card"><h3>Sessions Planifiées</h3><p class="stat-value" id="stat-sessions">0</p></div>
+                        <div class="stat-card"><h3>Revenus Total</h3><p class="stat-value" id="stat-revenues">0,00 DT</p></div>
                     </div>
-                    <div class="data-section">
-                        <div class="section-header"><h2>Prochaines Sessions</h2><button class="btn-primary" onclick="openModal('Nouvelle Session', 'form-session')">+ Session</button></div>
+
+                    <div class="data-section" style="margin-top: 2rem;">
+                        <div class="section-header">
+                            <h2>Prochaines Sessions à venir</h2>
+                            <button class="btn-primary" onclick="openModal('Planifier Session', 'form-session')">+ Nouvelle Session</button>
+                        </div>
                         <table class="data-table">
-                            <thead><tr><th>Date</th><th>Étudiant</th><th>Cours</th><th>Statut</th><th>Actions</th></tr></thead>
-                            <tbody>
-                                <tr><td>Aujourd'hui, 14:00</td><td>Jean Dupont</td><td>Maths Avancées</td><td><span class="badge badge-success">Confirmé</span></td><td><button class="btn-text" onclick="showDetails('Session Maths Jean Dupont')">Détails</button></td></tr>
-                            </tbody>
+                            <thead><tr><th>Date & Heure</th><th>Étudiant</th><th>Actions</th></tr></thead>
+                            <tbody id="table-dashboard-sessions"></tbody>
                         </table>
                     </div>
                 </div>
 
                 <div id="view-students" class="view-section">
                     <div class="data-section">
-                        <div class="section-header"><h2>Liste des Étudiants</h2><button class="btn-primary" onclick="openModal('Ajouter Étudiant', 'form-student')">+ Étudiant</button></div>
+                        <div class="section-header"><h2>Liste des Étudiants</h2><button class="btn-primary" onclick="openModal('Ajouter un Étudiant', 'form-student')">+ Étudiant</button></div>
                         <table class="data-table">
-                            <thead><tr><th>Nom</th><th>Email</th><th>Inscrit le</th><th>Actions</th></tr></thead>
-                            <tbody id="table-students-body">
-                                </tbody>
+                            <thead><tr><th>Nom</th><th>Email</th><th>Actions</th></tr></thead>
+                            <tbody id="table-students-body"></tbody>
                         </table>
                     </div>
                 </div>
@@ -73,46 +69,39 @@
                         <div class="section-header"><h2>Catalogue des Cours</h2><button class="btn-primary" onclick="openModal('Nouveau Cours', 'form-class')">+ Cours</button></div>
                         <table class="data-table">
                             <thead><tr><th>Nom</th><th>Prix Horaire</th><th>Actions</th></tr></thead>
-                            <tbody id="table-classes-body">
-                                </tbody>
+                            <tbody id="table-classes-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="view-enrollments" class="view-section">
+                    <div class="data-section">
+                        <div class="section-header"><h2>Suivi des Inscriptions</h2><button class="btn-primary" onclick="openModal('Nouvelle Inscription', 'form-enrollment')">+ Inscrire</button></div>
+                        <table class="data-table">
+                            <thead><tr><th>Étudiant</th><th>Cours</th><th>Statut</th><th>Actions</th></tr></thead>
+                            <tbody id="table-enrollments-body"></tbody>
                         </table>
                     </div>
                 </div>
 
                 <div id="view-planning" class="view-section">
                     <div class="data-section">
-                        <div class="section-header"><h2>Calendrier - Mai 2026</h2><button class="btn-primary" onclick="openModal('Planifier Session', 'form-session')">+ Nouvelle Session</button></div>
+                        <div class="section-header"><h2>Calendrier</h2><button class="btn-primary" onclick="openModal('Planifier Session', 'form-session')">+ Nouvelle Session</button></div>
                         <div class="calendar-grid" id="calendar-body"></div>
                     </div>
                 </div>
-                
-              <div id="view-enrollments" class="view-section">
-    <div class="data-section">
-        <div class="section-header">
-            <h2>Suivi des Inscriptions</h2>
-            <button class="btn-primary" onclick="openModal('Nouvelle Inscription', 'form-enrollment')">+ Inscrire un étudiant</button>
-        </div>
-        <table class="data-table">
-            <thead><tr><th>Étudiant</th><th>Cours</th><th>Statut</th><th>Actions</th></tr></thead>
-            <tbody id="table-enrollments-body">
-                </tbody>
-        </table>
-    </div>
-</div>
 
-<div id="view-payments" class="view-section">
-    <div class="data-section">
-        <div class="section-header">
-            <h2>Historique des Paiements</h2>
-            <button class="btn-primary" onclick="openModal('Enregistrer Paiement', 'form-payment')">+ Nouveau Paiement</button>
-        </div>
-        <table class="data-table">
-            <thead><tr><th>Date</th><th>Étudiant</th><th>Montant</th><th>Statut</th><th>Actions</th></tr></thead>
-            <tbody id="table-payments-body">
-                </tbody>
-        </table>
-    </div>
-</div>            </div>
+                <div id="view-payments" class="view-section">
+                    <div class="data-section">
+                        <div class="section-header"><h2>Historique des Paiements</h2><button class="btn-primary" onclick="openModal('Enregistrer Paiement', 'form-payment')">+ Nouveau</button></div>
+                        <table class="data-table">
+                            <thead><tr><th>Date</th><th>Étudiant</th><th>Montant</th><th>Actions</th></tr></thead>
+                            <tbody id="table-payments-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
         </main>
     </div>
 
@@ -124,294 +113,266 @@
             </div>
             
             <form id="form-student" class="api-form">
-                <div class="form-group"><label>Nom Complet</label><input type="text" id="new-student-name" placeholder="Ex: Jean Dupont" required></div>
-                <div class="form-group"><label>Email</label><input type="email" id="new-student-email" placeholder="jean@email.com" required></div>
+                <div class="form-group"><label>Nom Complet</label><input type="text" id="new-student-name" required></div>
+                <div class="form-group"><label>Email</label><input type="email" id="new-student-email" required></div>
                 <button type="submit" class="btn-primary" style="width:100%">Sauvegarder l'étudiant</button>
             </form>
 
             <form id="form-class" class="api-form" style="display:none">
-                <div class="form-group"><label>Nom du Cours</label><input type="text" id="new-class-name" placeholder="Ex: Maths 4ème" required></div>
-                <div class="form-group"><label>Taux Horaire (€)</label><input type="number" id="new-class-price" placeholder="25" required></div>
+                <div class="form-group"><label>Nom du Cours</label><input type="text" id="new-class-name" required></div>
+                <div class="form-group"><label>Taux Horaire (DT)</label><input type="number" id="new-class-price" required></div>
                 <button type="submit" class="btn-primary" style="width:100%">Créer le cours</button>
             </form>
 
+            <form id="form-enrollment" class="api-form" style="display:none">
+                <div class="form-group">
+                    <label>Sélectionner l'étudiant</label>
+                    <select id="new-enrollment-student" required></select>
+                </div>
+                <div class="form-group">
+                    <label>Sélectionner le cours</label>
+                    <select id="new-enrollment-class" required></select>
+                </div>
+                <button type="submit" class="btn-primary" style="width:100%">Valider l'inscription</button>
+            </form>
+
             <form id="form-session" class="api-form" style="display:none">
-    <div class="form-group">
-        <label>Étudiant</label>
-        <select id="new-session-student" required>
-            <option value="Jean D.">Jean Dupont</option>
-            <option value="Marie C.">Marie Curie</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label>Date & Heure</label>
-        <input type="datetime-local" id="new-session-date" required>
-    </div>
-    <button type="submit" class="btn-primary" style="width:100%">Planifier</button>
-</form>
+                <div class="form-group">
+                    <label>Étudiant</label>
+                    <select id="new-session-student" required></select>
+                </div>
+                <div class="form-group"><label>Date & Heure</label><input type="datetime-local" id="new-session-date" required></div>
+                <button type="submit" class="btn-primary" style="width:100%">Planifier</button>
+            </form>
+
             <form id="form-payment" class="api-form" style="display:none">
-    <div class="form-group">
-        <label>Étudiant</label>
-        <select id="new-payment-student" required>
-            <option value="Jean Dupont">Jean Dupont</option>
-            <option value="Marie Curie">Marie Curie</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label>Montant payé (€)</label>
-        <input type="number" id="new-payment-amount" placeholder="Ex: 50" required>
-    </div>
-    <div class="form-group">
-        <label>Date du paiement</label>
-        <input type="date" id="new-payment-date" required>
-    </div>
-    <button type="submit" class="btn-primary" style="width:100%">Valider le paiement</button>
-</form>
+                <div class="form-group">
+                    <label>Étudiant</label>
+                    <select id="new-payment-student" required></select>
+                </div>
+                <div class="form-group"><label>Montant payé (DT)</label><input type="number" id="new-payment-amount" required></div>
+                <div class="form-group"><label>Date du paiement</label><input type="date" id="new-payment-date" required></div>
+                <button type="submit" class="btn-primary" style="width:100%">Valider le paiement</button>
+            </form>
         </div>
     </div>
 
     <script>
-        // 1. NAVIGATION SPA
+        // --- 1. BASE DE DONNÉES LOCALE (STATE) ---
+        let db = {
+            students: [{ id: 1, name: "Jean Dupont", email: "jean@test.com" }],
+            classes: [{ id: 1, name: "Maths Avancées", price: 25 }],
+            payments: [],
+            enrollments: [],
+            sessions: [] // Ajout d'une vraie table pour les sessions
+        };
+
+        // --- 2. CONFIGURATION DES DATES (Sécurité / Validation) ---
+        function setupDateConstraints() {
+            const now = new Date();
+            
+            // Format YYYY-MM-DD pour le type "date" (Paiements : max = aujourd'hui)
+            const yyyy = now.getFullYear();
+            const mm = String(now.getMonth() + 1).padStart(2, '0');
+            const dd = String(now.getDate()).padStart(2, '0');
+            const todayDate = `${yyyy}-${mm}-${dd}`;
+            document.getElementById('new-payment-date').setAttribute('max', todayDate);
+
+            // Format YYYY-MM-DDTHH:MM pour le type "datetime-local" (Sessions : min = maintenant)
+            const hh = String(now.getHours()).padStart(2, '0');
+            const min = String(now.getMinutes()).padStart(2, '0');
+            const nowDateTime = `${todayDate}T${hh}:${min}`;
+            document.getElementById('new-session-date').setAttribute('min', nowDateTime);
+        }
+
+        // --- 3. NAVIGATION ET MODALES ---
         document.querySelectorAll('.nav-item').forEach(item => {
             item.addEventListener('click', () => {
                 document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
                 document.querySelectorAll('.view-section').forEach(view => view.classList.remove('active'));
                 item.classList.add('active');
-                const target = item.getAttribute('data-target');
-                const title = item.getAttribute('data-title');
-                document.getElementById(target).classList.add('active');
-                document.getElementById('main-title').innerText = title;
+                document.getElementById(item.getAttribute('data-target')).classList.add('active');
+                document.getElementById('main-title').innerText = item.getAttribute('data-title');
             });
         });
 
-        // 2. GESTION DE LA MODALE
         function openModal(title, formId) {
             document.getElementById('modal-title').innerText = title;
             document.querySelectorAll('.api-form').forEach(f => f.style.display = 'none');
             document.getElementById(formId).style.display = 'block';
             document.getElementById('modal').style.display = 'flex';
         }
-        function closeModal() { 
-            document.getElementById('modal').style.display = 'none'; 
+        function closeModal() { document.getElementById('modal').style.display = 'none'; }
+
+        // --- 4. MISE À JOUR DES LISTES DÉROULANTES ---
+        function updateDropdowns() {
+            const studentSelects = document.querySelectorAll('#new-enrollment-student, #new-session-student, #new-payment-student');
+            const studentOptions = db.students.map(s => `<option value="${s.name}">${s.name}</option>`).join('');
+            studentSelects.forEach(select => { if(select) select.innerHTML = studentOptions; });
+
+            const classSelect = document.getElementById('new-enrollment-class');
+            if(classSelect) {
+                classSelect.innerHTML = db.classes.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+            }
         }
 
-        // 3. CALENDRIER REPARÉ
-        function initCalendar() {
-            const cal = document.getElementById('calendar-body');
-            cal.innerHTML = ''; // Nettoyer avant de générer
+        // --- 5. FONCTIONS DE RENDU (Affichage) ---
+        function renderAll() {
+            renderStudents();
+            renderClasses();
+            renderPayments();
+            renderEnrollments();
+            renderSessions(); // Gère le calendrier ET le Dashboard
+            updateDropdowns();
+        }
+
+        function renderStudents() {
+            document.getElementById('stat-students').innerText = db.students.length;
+            const tbody = document.getElementById('table-students-body');
+            tbody.innerHTML = '';
+            db.students.forEach(s => {
+                tbody.innerHTML += `<tr>
+                    <td><strong>${s.name}</strong></td><td>${s.email}</td>
+                    <td><button class="btn-text danger" onclick="deleteItem('students', ${s.id})">Supprimer</button></td>
+                </tr>`;
+            });
+        }
+
+        function renderClasses() {
+            document.getElementById('stat-classes').innerText = db.classes.length;
+            const tbody = document.getElementById('table-classes-body');
+            tbody.innerHTML = '';
+            db.classes.forEach(c => {
+                tbody.innerHTML += `<tr>
+                    <td><strong>${c.name}</strong></td><td>${c.price} DT /h</td>
+                    <td><button class="btn-text danger" onclick="deleteItem('classes', ${c.id})">Supprimer</button></td>
+                </tr>`;
+            });
+        }
+
+        function renderPayments() {
+            const tbody = document.getElementById('table-payments-body');
+            tbody.innerHTML = '';
+            let total = 0;
+            db.payments.forEach(p => {
+                total += parseFloat(p.amount);
+                tbody.innerHTML += `<tr>
+                    <td>${p.date}</td><td><strong>${p.student}</strong></td><td>${p.amount} DT</td>
+                    <td><button class="btn-text danger" onclick="deleteItem('payments', ${p.id})">Supprimer</button></td>
+                </tr>`;
+            });
+            document.getElementById('stat-revenues').innerText = total + " DT";
+        }
+
+        function renderEnrollments() {
+            const tbody = document.getElementById('table-enrollments-body');
+            tbody.innerHTML = '';
+            db.enrollments.forEach(e => {
+                tbody.innerHTML += `<tr>
+                    <td><strong>${e.student}</strong></td><td>${e.class}</td>
+                    <td><span class="badge badge-success">${e.status}</span></td>
+                    <td><button class="btn-text danger" onclick="deleteItem('enrollments', ${e.id})">Supprimer</button></td>
+                </tr>`;
+            });
+        }
+
+        function renderSessions() {
+            document.getElementById('stat-sessions').innerText = db.sessions.length;
             
+            // 1. Remplir le Dashboard
+            const dashTbody = document.getElementById('table-dashboard-sessions');
+            dashTbody.innerHTML = '';
+            
+            if(db.sessions.length === 0) {
+                dashTbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#6b7280;">Aucune session planifiée</td></tr>`;
+            } else {
+                // Trie par date pour afficher les plus proches en premier
+                let sortedSessions = [...db.sessions].sort((a, b) => new Date(a.rawDate) - new Date(b.rawDate));
+                sortedSessions.forEach(s => {
+                    dashTbody.innerHTML += `<tr>
+                        <td><strong>${s.displayDate}</strong> à ${s.time}</td>
+                        <td>${s.student}</td>
+                        <td><button class="btn-text danger" onclick="deleteItem('sessions', ${s.id})">Annuler</button></td>
+                    </tr>`;
+                });
+            }
+
+            // 2. Remplir le Calendrier
+            const cal = document.getElementById('calendar-body');
+            cal.innerHTML = ''; 
             const days = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
             days.forEach(d => cal.innerHTML += `<div class="day-header">${d}</div>`);
             
-            // Génération des jours (31 jours pour l'exemple)
+            // Crée les 31 cases
             for(let i = 1; i <= 31; i++) {
-                let classToday = (i === 3) ? 'today' : '';
-                let session = (i === 3) ? `<span class="event-tag" onclick="showDetails('Session de Jean D. à 14:00')">14:00 - Jean D.</span>` : '';
-                cal.innerHTML += `<div class="day ${classToday}">${i} ${session}</div>`;
+                cal.innerHTML += `<div class="day" id="cal-day-${i}">${i}</div>`;
             }
-        }
-        initCalendar();
 
-        // 4. ACTIONS DES BOUTONS (DÉTAILS ET SUPPRESSION)
-        function showDetails(itemName) {
-            // Plus tard, on fera un vrai GET à l'API ici
-            alert("Affichage des détails pour : " + itemName + "\n\n(Cette fonction sera bientôt connectée au backend pour récupérer les données complètes).");
+            // Place les tags dans les bonnes cases
+            db.sessions.forEach(s => {
+                const targetDayDiv = document.getElementById(`cal-day-${s.day}`);
+                if (targetDayDiv) {
+                    targetDayDiv.innerHTML += `<span class="event-tag">${s.time} - ${s.student}</span>`;
+                }
+            });
         }
 
-        function deleteRow(btnElement, type) {
-            if(confirm("Êtes-vous sûr de vouloir supprimer cet élément ?")) {
-                // Supprime la ligne (tr) du tableau
-                const row = btnElement.closest('tr');
-                row.remove();
-                
-                // Ici, plus tard, on ajoutera le fetch DELETE vers ton API
-                console.log("Suppression effectuée localement pour : " + type);
+        // --- 6. SUPPRESSION ---
+        window.deleteItem = function(table, id) {
+            if(confirm("Supprimer cet élément ?")) {
+                db[table] = db[table].filter(item => item.id !== id);
+                renderAll(); 
             }
         }
 
-        // 5. GESTION DES FORMULAIRES (AJOUT LOCAL)
-        // Ajout d'un Étudiant
+        // --- 7. SOUMISSION DES FORMULAIRES ---
         document.getElementById('form-student').addEventListener('submit', function(e) {
-            e.preventDefault(); // Empêche la page de se recharger
-            
-            const name = document.getElementById('new-student-name').value;
-            const email = document.getElementById('new-student-email').value;
-            const dateStr = new Date().toLocaleDateString('fr-FR');
-            
-            const tbody = document.getElementById('table-students-body');
-            const newRow = `
-                <tr>
-                    <td><strong>${name}</strong></td>
-                    <td>${email}</td>
-                    <td>${dateStr}</td>
-                    <td>
-                        <button class="btn-text" type="button" onclick="showDetails('${name}')">Détails</button>
-                        <button class="btn-text danger" type="button" onclick="deleteRow(this, 'Etudiant')">Supprimer</button>
-                    </td>
-                </tr>
-            `;
-            tbody.innerHTML += newRow;
-            
-            closeModal();
-            this.reset(); // Vide le formulaire
-            
-            // Met à jour le compteur du Dashboard
-            let currentCount = parseInt(document.getElementById('stat-students').innerText);
-            document.getElementById('stat-students').innerText = currentCount + 1;
+            e.preventDefault();
+            db.students.push({ id: Date.now(), name: document.getElementById('new-student-name').value, email: document.getElementById('new-student-email').value });
+            closeModal(); this.reset(); renderAll();
         });
 
-        // Ajout d'un Cours
         document.getElementById('form-class').addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            const name = document.getElementById('new-class-name').value;
-            const price = document.getElementById('new-class-price').value;
-            
-            const tbody = document.getElementById('table-classes-body');
-            const newRow = `
-                <tr>
-                    <td><strong>${name}</strong></td>
-                    <td>${price} € /h</td>
-                    <td>
-                        <button class="btn-text" type="button" onclick="showDetails('${name}')">Éditer</button>
-                        <button class="btn-text danger" type="button" onclick="deleteRow(this, 'Cours')">Supprimer</button>
-                    </td>
-                </tr>
-            `;
-            tbody.innerHTML += newRow;
-            
-            closeModal();
-            this.reset();
-
-            // Met à jour le compteur du Dashboard
-            let currentCount = parseInt(document.getElementById('stat-classes').innerText);
-            document.getElementById('stat-classes').innerText = currentCount + 1;
+            db.classes.push({ id: Date.now(), name: document.getElementById('new-class-name').value, price: document.getElementById('new-class-price').value });
+            closeModal(); this.reset(); renderAll();
         });
-            // Ajout d'un Paiement
+
         document.getElementById('form-payment').addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            const student = document.getElementById('new-payment-student').value;
-            const amount = document.getElementById('new-payment-amount').value;
-            
-            // Formater la date choisie au format JJ/MM/AAAA
-            const dateInput = document.getElementById('new-payment-date').value;
-            const dateObj = new Date(dateInput);
-            const dateStr = dateObj.toLocaleDateString('fr-FR');
-            
-            const tbody = document.getElementById('table-payments-body');
-            const newRow = `
-                <tr>
-                    <td>${dateStr}</td>
-                    <td><strong>${student}</strong></td>
-                    <td>${amount},00 €</td>
-                    <td><span class="badge badge-success">Validé</span></td>
-                    <td>
-                        <button class="btn-text" type="button" onclick="showDetails('Nouveau Paiement')">Reçu</button>
-                        <button class="btn-text danger" type="button" onclick="deleteRow(this, 'Paiement')">Supprimer</button>
-                    </td>
-                </tr>
-            `;
-            tbody.innerHTML += newRow;
-            
-            closeModal();
-            this.reset();
+            const dateInput = new Date(document.getElementById('new-payment-date').value).toLocaleDateString('fr-FR');
+            db.payments.push({ id: Date.now(), student: document.getElementById('new-payment-student').value, amount: document.getElementById('new-payment-amount').value, date: dateInput });
+            closeModal(); this.reset(); renderAll();
         });
-        // Ajout d'une Session (Planning)
+
+        document.getElementById('form-enrollment').addEventListener('submit', function(e) {
+            e.preventDefault();
+            db.enrollments.push({ id: Date.now(), student: document.getElementById('new-enrollment-student').value, class: document.getElementById('new-enrollment-class').value, status: "Actif" });
+            closeModal(); this.reset(); renderAll();
+        });
+
         document.getElementById('form-session').addEventListener('submit', function(e) {
             e.preventDefault();
-            
             const student = document.getElementById('new-session-student').value;
-            const dateTimeInput = document.getElementById('new-session-date').value;
+            const dateObj = new Date(document.getElementById('new-session-date').value);
             
-            if (!dateTimeInput) return;
+            // Ajout dans la table sessions
+            db.sessions.push({
+                id: Date.now(),
+                student: student,
+                rawDate: dateObj, // Stocke la vraie date pour pouvoir trier
+                displayDate: dateObj.toLocaleDateString('fr-FR'),
+                day: dateObj.getDate(),
+                time: `${String(dateObj.getHours()).padStart(2, '0')}:${String(dateObj.getMinutes()).padStart(2, '0')}`
+            });
 
-            // Extraire le jour et l'heure de la date choisie
-            const dateObj = new Date(dateTimeInput);
-            const day = dateObj.getDate(); // Donne le jour du mois (ex: 15)
-            const hours = String(dateObj.getHours()).padStart(2, '0');
-            const minutes = String(dateObj.getMinutes()).padStart(2, '0');
-            const timeStr = `${hours}:${minutes}`;
-
-            // Trouver la case correspondante dans le calendrier
-            // (querySelectorAll('.day') récupère toutes les cases de 1 à 31)
-            const calendarDays = document.querySelectorAll('.calendar-grid .day');
-            const targetDayDiv = calendarDays[day - 1]; // l'index commence à 0, donc jour 1 = index 0
-            
-            if (targetDayDiv) {
-                // Créer l'étiquette bleue et l'ajouter dans la case du jour
-                const sessionTag = `<span class="event-tag" onclick="showDetails('Session ${student} à ${timeStr}')">${timeStr} - ${student}</span>`;
-                targetDayDiv.innerHTML += sessionTag;
-            }
-
-            closeModal();
-            this.reset();
+            closeModal(); this.reset(); renderAll();
         });
-        // 6. CHARGEMENT DES DONNÉES INITIALES (MOCK)
-        function loadInitialData() {
-            // Étudiants
-            document.getElementById('table-students-body').innerHTML = `
-                <tr>
-                    <td><strong>Jean Dupont</strong></td><td>jean@test.com</td><td>01/05/2026</td>
-                    <td>
-                        <button class="btn-text" onclick="showDetails('Jean Dupont')">Détails</button>
-                        <button class="btn-text danger" onclick="deleteRow(this, 'Etudiant')">Supprimer</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td><strong>Marie Curie</strong></td><td>marie@physique.fr</td><td>02/05/2026</td>
-                    <td>
-                        <button class="btn-text" onclick="showDetails('Marie Curie')">Détails</button>
-                        <button class="btn-text danger" onclick="deleteRow(this, 'Etudiant')">Supprimer</button>
-                    </td>
-                </tr>
-            `;
-            
-            // Cours
-            document.getElementById('table-classes-body').innerHTML = `
-                <tr>
-                    <td><strong>Maths Avancées</strong></td><td>25 € /h</td>
-                    <td>
-                        <button class="btn-text" onclick="showDetails('Maths Avancées')">Éditer</button>
-                        <button class="btn-text danger" onclick="deleteRow(this, 'Cours')">Supprimer</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td><strong>Physique</strong></td><td>25 € /h</td>
-                    <td>
-                        <button class="btn-text" onclick="showDetails('Physique')">Éditer</button>
-                        <button class="btn-text danger" onclick="deleteRow(this, 'Cours')">Supprimer</button>
-                    </td>
-                </tr>
-            `;
-            // --- À AJOUTER DANS loadInitialData() ---
 
-// Inscriptions
-document.getElementById('table-enrollments-body').innerHTML = `
-    <tr>
-        <td><strong>Jean Dupont</strong></td><td>Maths Avancées</td>
-        <td><span class="badge badge-success">Actif</span></td>
-        <td>
-            <button class="btn-text" onclick="showDetails('Inscription Jean')">Détails</button>
-            <button class="btn-text danger" onclick="deleteRow(this, 'Inscription')">Annuler</button>
-        </td>
-    </tr>
-`;
+        // 🚀 DÉMARRAGE DE L'APPLICATION
+        setupDateConstraints();
+        renderAll();
 
-// Paiements
-document.getElementById('table-payments-body').innerHTML = `
-    <tr>
-        <td>28/04/2026</td><td><strong>Jean Dupont</strong></td><td>50,00 €</td>
-        <td><span class="badge badge-success">Validé</span></td>
-        <td>
-            <button class="btn-text" onclick="showDetails('Paiement Jean')">Reçu</button>
-            <button class="btn-text danger" onclick="deleteRow(this, 'Paiement')">Supprimer</button>
-        </td>
-    </tr>
-`;
-        }
-        loadInitialData();
-        
     </script>
 </body>
 </html>
